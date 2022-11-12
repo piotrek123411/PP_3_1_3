@@ -19,11 +19,13 @@ import java.util.Set;
 @Controller
 @RequestMapping("/")
 public class AdminController {
+
     private final UserService userService;
+
     private final RoleDAO roleDAO;
 
     @Autowired
-    PasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public AdminController(UserService userService, RoleDAO roleDAO) {
@@ -74,29 +76,9 @@ public class AdminController {
             @ModelAttribute("lastname") String lastname,
             @ModelAttribute("age") byte age,
             @ModelAttribute("city") String city,
-            @RequestParam("roles") String[] roles
-    ) {
-        User user = userService.getById(id);
-        user.setName(name);
-        user.setLastname(lastname);
-        user.setAge(age);
-        user.setCity(city);
-        if (!password.isEmpty()) {
-            user.setPassword(password);
-        }
-        Set<Role> Setroles = new HashSet<>();
-        for (String st : roles) {
-            if (st.equals("ADMIN")) {
-                Role role_admin = roleDAO.createRoleIfNotFound("ADMIN", 1L);
-                Setroles.add(role_admin);
-            }
-            if (st.equals("USER")) {
-                Role role_user = roleDAO.createRoleIfNotFound("USER", 2L);
-                Setroles.add(role_user);
-            }
-        }
-        user.setRoles(Setroles);
-        userService.save(user);
+            @RequestParam("roles") String[] roles) {
+        userService.editUser(id,name,password,lastname
+        ,age,city,roles);
         return "redirect:/admin";
     }
 
@@ -106,6 +88,4 @@ public class AdminController {
         userService.delete(user);
         return "redirect:/admin";
     }
-
-
 }

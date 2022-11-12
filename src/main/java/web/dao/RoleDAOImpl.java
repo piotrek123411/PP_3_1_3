@@ -1,6 +1,7 @@
 package web.dao;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.Role;
 import web.model.User;
@@ -9,9 +10,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
-@Component
+@Repository
 @Transactional
 public class RoleDAOImpl implements RoleDAO{
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -58,5 +60,4 @@ public class RoleDAOImpl implements RoleDAO{
         }
         return role;
     }
-
 }

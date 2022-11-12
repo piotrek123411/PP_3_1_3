@@ -1,6 +1,7 @@
 package web.dao;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.Role;
 import web.model.User;
@@ -9,9 +10,10 @@ import web.dao.RoleDAOImpl;
 import javax.persistence.*;
 import java.util.List;
 
-@Component
+@Repository
 @Transactional
 public class UserDAOImpl implements UserDAO {
+
     public UserDAOImpl() {
     }
 

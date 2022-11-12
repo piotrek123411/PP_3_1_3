@@ -13,18 +13,17 @@ import web.model.Role;
 import web.model.User;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
+
     private UserDAO userDAO;
+
     private RoleDAO roleDAO;
 
     @Autowired
-    PasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -55,6 +54,31 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getById(Long id) {
         return userDAO.getById(id);
+    }
+
+    @Override
+    public void editUser(Long id, String name, String password, String lastname, byte age, String city, String[] roles) {
+        User user = getById(id);
+        user.setName(name);
+        user.setLastname(lastname);
+        user.setAge(age);
+        user.setCity(city);
+        if (!password.isEmpty()) {
+            user.setPassword(password);
+        }
+        Set<Role> Setroles = new HashSet<>();
+        for (String st : roles) {
+            if (st.equals("ADMIN")) {
+                Role role_admin = roleDAO.createRoleIfNotFound("ADMIN", 1L);
+                Setroles.add(role_admin);
+            }
+            if (st.equals("USER")) {
+                Role role_user = roleDAO.createRoleIfNotFound("USER", 2L);
+                Setroles.add(role_user);
+            }
+        }
+        user.setRoles(Setroles);
+        save(user);
     }
 
     @Override

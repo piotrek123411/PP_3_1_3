@@ -10,14 +10,21 @@ import java.util.Set;
 @Entity
 @Table(name="t_users")
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private String lastname;
+
     private byte age;
+
     private String city;
+
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
