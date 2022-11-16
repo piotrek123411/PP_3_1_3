@@ -1,5 +1,6 @@
 package web.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,23 +12,21 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 @Repository
-@Transactional
 public class RoleDAOImpl implements RoleDAO{
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
     public RoleDAOImpl() {
     }
 
-    @Transactional
     @Override
     public void save(Role role) {
         Role managed = entityManager.merge(role);
         entityManager.persist(managed);
     }
 
-    @Transactional
     @Override
     public void delete(Role role) {
         Role managed = entityManager.merge(role);
@@ -51,7 +50,7 @@ public class RoleDAOImpl implements RoleDAO{
         }
     }
 
-    @Transactional
+    @Override
     public Role createRoleIfNotFound(String name, long id) {
         Role role = getRoleByName(name);
         if (role == null) {

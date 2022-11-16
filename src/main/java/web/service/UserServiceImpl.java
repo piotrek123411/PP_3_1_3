@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDAO.getById(id);
     }
 
+    @Transactional
     @Override
     public void editUser(Long id, String name, String password, String lastname, byte age, String city, String[] roles) {
         User user = getById(id);

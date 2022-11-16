@@ -25,9 +25,6 @@ public class AdminController {
     private final RoleDAO roleDAO;
 
     @Autowired
-    private PasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
     public AdminController(UserService userService, RoleDAO roleDAO) {
         this.userService = userService;
         this.roleDAO = roleDAO;
