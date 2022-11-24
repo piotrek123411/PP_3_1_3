@@ -29,6 +29,13 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    public User (String name, String lastname, byte age, String city) {
+        this.name = name;
+        this.lastname = lastname;
+        this.age = age;
+        this.city = city;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -84,13 +91,6 @@ public class User implements UserDetails {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User(String name, String lastname, byte age, String city) {
-        this.name = name;
-        this.lastname = lastname;
-        this.age = age;
-        this.city = city;
     }
 
     public String getName() {

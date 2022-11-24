@@ -3,11 +3,11 @@ package web.controller;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import web.preload.PreloadDatabase;
 import web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
-import web.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +41,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginPage() {
+        PreloadDatabase.preload();
         return "login";
     }
 }
