@@ -36,6 +36,10 @@ public class User implements UserDetails {
         this.city = city;
     }
 
+    public User() {
+
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
